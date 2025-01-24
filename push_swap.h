@@ -8,4 +8,7 @@ typedef struct s_node{
     struct s_node *next;
 } t_node;
 
+void    sa(t_node **head_a);
+
+
 #endif

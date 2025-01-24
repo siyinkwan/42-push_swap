@@ -39,13 +39,22 @@ int main(int argc, char **argv)
     t_node *head_b;
 
     head_a = get_stack(argv);
+    head_b = NULL;
     current_a = head_a;
 
+    printf("%s","original stack a:\n");
     while (current_a != NULL)
     {
         printf("%d\n",current_a->value);
         current_a = current_a->next;
     }
 
-    head_b = NULL;
+    sa(&head_a);
+    current_a = head_a;
+    printf("%s","stack a after sa:\n");
+    while (current_a != NULL)
+    {
+    printf("%d\n",current_a->value);
+    current_a = current_a->next;
+    }
 }

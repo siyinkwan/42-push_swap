@@ -1,11 +1,16 @@
 {
+    "version": "0.2.0",
     "configurations": [
         {
             "name": "C/C++: gcc build and debug active file",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": ["5", "7", "36"],
+            "args": [
+                "5",
+                "8",
+                "17"
+            ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
@@ -26,6 +31,5 @@
             "preLaunchTask": "C/C++: gcc build active file",
             "miDebuggerPath": "/usr/bin/gdb"
         }
-    ],
-    "version": "2.0.0"
+    ]
 }
