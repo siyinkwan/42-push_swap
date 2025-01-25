@@ -13,14 +13,18 @@ void    swap(t_node **head)
     *head = second;
 }
 
-void    push(t_node **head)
+void    push(t_node **head1, t_node **head2)
 {
-//TODO
+    if (*head1 == NULL)
+        return;
+    
+    t_node *temp;
+
+    temp = (*head1)->next;
+    (*head1)->next = *head2;
+    *head2 = *head1;
+    (*head1) = temp;
 }
-
-
-
-
 
 void    sa(t_node **head_a)
 {
@@ -36,4 +40,14 @@ void    ss(t_node **head_a, t_node **head_b)
 {
     swap(head_a);
     swap(head_b);
+}
+
+void    pa(t_node **head_b, t_node **head_a)
+{
+    push(head_b, head_a);
+}
+
+void    pb(t_node **head_a, t_node **head_b)
+{
+    push(head_a, head_b);
 }

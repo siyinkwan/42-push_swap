@@ -27,34 +27,61 @@ t_node    *get_stack(char **arr)
     return (head);
 }
 
+// FOR TESTING:
+#include <stdio.h>
 
-#include <stdio.h> //TO REMOVE
+void    print_stack(t_node *head)
+{
+    t_node *current;
+
+    current = head;
+    while (current != NULL)
+    {
+        printf("%d\n", current->value);
+        current = current->next;
+    }
+}
+
+t_node    *create_node(int value)
+{
+    t_node *new_node; 
+    
+    new_node = malloc(sizeof(t_node));
+    new_node->value = value;
+    new_node->next = NULL;
+    return(new_node);
+}
 
 int main(int argc, char **argv)
 {
     if (argc == 1)
         return (0);
     t_node *head_a;
-    t_node *current_a;
     t_node *head_b;
 
     head_a = get_stack(argv);
-    head_b = NULL;
-    current_a = head_a;
+    //head_b = NULL;
+    head_b = create_node(10);
+    head_b->next = create_node(42);
 
+    //test swap
+    // printf("%s","original stack a:\n");
+    // print_stack(head_a);
+    // sa(&head_a);
+    // printf("%s","stack a after sa:\n");
+    // print_stack(head_a);
+
+    //test push
     printf("%s","original stack a:\n");
-    while (current_a != NULL)
-    {
-        printf("%d\n",current_a->value);
-        current_a = current_a->next;
-    }
+    print_stack(head_a);
+    printf("%s","original stack b:\n");
+    print_stack(head_b);
+    pa(&head_b, &head_a);
+    printf("\n\n%s","stack a after pb:\n");
+    print_stack(head_a);
+    printf("%s","stack b after pb:\n");
+    print_stack(head_b);
 
-    sa(&head_a);
-    current_a = head_a;
-    printf("%s","stack a after sa:\n");
-    while (current_a != NULL)
-    {
-    printf("%d\n",current_a->value);
-    current_a = current_a->next;
-    }
+    //rest reverse
+    
 }
