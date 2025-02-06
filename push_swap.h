@@ -8,12 +8,26 @@ typedef struct s_node{
     struct s_node *next;
 } t_node;
 
-void    sa(t_node **head_a);
-void    sb(t_node **head_b);
-void    ss(t_node **head_a, t_node **head_b);
-void    pb(t_node **head_a, t_node **head_b);
-void    pa(t_node **head_b, t_node **head_a);
+typedef struct s_stack{
+    t_node  *top;
+    t_node  *bottom;
+    int size;
+} t_stack;
 
+void    sa(t_stack *stack_a);
+void    sb(t_stack *stack_b);
+void    ss(t_stack *stack_a, t_stack *stack_b);
+void    pb(t_stack *stack_a, t_stack *stack_b);
+void    pa(t_stack *stack_b, t_stack *stack_a);
+void    ra(t_stack *stack_a);
+void    rb(t_stack *stack_b);
+void    rr(t_stack *stack_a, t_stack *stack_b);
+void    rra(t_stack *stack_a);
+void    rrb(t_stack *stack_b);
+void    rrr(t_stack *stack_a, t_stack *stack_b);
 
+t_stack    *get_stack(char **arr);
+int    is_sorted(t_stack *stack);
+void    print_stack(t_stack *stack);
 
 #endif

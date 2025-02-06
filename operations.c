@@ -1,53 +1,127 @@
 #include "push_swap.h"
 
-void    swap(t_node **head)
+void    swap(t_stack *stack)
 {
-    if (*head == NULL || ((*head)->next == NULL))
+    if (stack->size < 2)
         return;
 
     t_node  *second;
 
-    second = (*head)->next;
-    (*head)->next = second->next;
-    second->next = *head;
-    *head = second;
+    second = stack->top->next;
+    stack->top->next = second->next;
+    second->next = stack->top;
+    stack->top = second;
 }
 
-void    push(t_node **head1, t_node **head2)
+void    push(t_stack *stack_a, t_stack *stack_b)
 {
-    if (*head1 == NULL)
+    if (stack_a->top == NULL)
         return;
     
     t_node *temp;
 
-    temp = (*head1)->next;
-    (*head1)->next = *head2;
-    *head2 = *head1;
-    (*head1) = temp;
+    temp = stack_a->top;
+    stack_a->top = stack_a->top->next;
+    temp->next = stack_b->top;
+    stack_b->top = temp;
+
+    stack_a->size--;
+    stack_b->size++;
 }
 
-void    sa(t_node **head_a)
+void    rotate(t_stack *stack)
 {
-    swap(head_a);
+    if (stack->size < 2)
+        return;
+
+    t_node  *first;
+    t_node  *current;
+
+    first = stack->top;
+    current = stack->top;
+    stack->top = stack->top->next;
+    while (current->next != NULL)
+        current = current->next;
+    first->next = NULL;
+    current->next = first;
+    stack->bottom = first;
 }
 
-void    sb(t_node **head_b)
+void    r_rotate(t_stack *stack)
 {
-    swap(head_b);
+    if (stack->size < 2)
+        return;
+
+    t_node  *current;
+    t_node  *prev;
+
+    current = stack->top;
+    prev = NULL;
+    while (current->next != NULL)
+    {
+        prev = current;
+        current = current->next;
+    }
+    prev->next = NULL;
+    current->next = stack->top;
+    stack->top = current;
+    stack->bottom = prev;
 }
 
-void    ss(t_node **head_a, t_node **head_b)
+void    sa(t_stack *stack_a)
 {
-    swap(head_a);
-    swap(head_b);
+    swap(stack_a);
 }
 
-void    pa(t_node **head_b, t_node **head_a)
+void    sb(t_stack *stack_b)
 {
-    push(head_b, head_a);
+    swap(stack_b);
 }
 
-void    pb(t_node **head_a, t_node **head_b)
+void    ss(t_stack *stack_a, t_stack *stack_b)
 {
-    push(head_a, head_b);
+    swap(stack_a);
+    swap(stack_b);
+}
+
+void    pa(t_stack *stack_b, t_stack *stack_a)
+{
+    push(stack_b, stack_a);
+}
+
+void    pb(t_stack *stack_a, t_stack *stack_b)
+{
+    push(stack_a, stack_b);
+}
+
+void    ra(t_stack *stack_a)
+{
+    rotate(stack_a);
+}
+
+void    rb(t_stack *stack_b)
+{
+    rotate(stack_b);
+}
+
+void    rr(t_stack *stack_a, t_stack *stack_b)
+{
+    rotate(stack_a);
+    rotate(stack_b);
+}
+
+void    rra(t_stack *stack_a)
+{
+    r_rotate(stack_a);
+}
+
+void    rrb(t_stack *stack_b)
+{
+    r_rotate(stack_b);
+}
+
+void    rrr(t_stack *stack_a, t_stack *stack_b)
+{
+    r_rotate(stack_a);
+    r_rotate(stack_b);
 }
