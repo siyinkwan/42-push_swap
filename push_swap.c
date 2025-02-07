@@ -48,7 +48,7 @@ void    print_stack(t_stack *stack)
         printf("%d\n", current->value);
         current = current->next;
     }
-    printf("stack size: %d",stack->size);
+    //printf("\nstack size: %d",stack->size);
 }
 
 t_node    *create_node(int value)

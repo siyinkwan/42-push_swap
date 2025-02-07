@@ -22,9 +22,12 @@ void    push(t_stack *stack_a, t_stack *stack_b)
 
     temp = stack_a->top;
     stack_a->top = stack_a->top->next;
+    if (stack_a->top == NULL)
+        stack_a->bottom = NULL;
     temp->next = stack_b->top;
     stack_b->top = temp;
-
+    if (stack_b->bottom == NULL)
+        stack_b->bottom = temp;
     stack_a->size--;
     stack_b->size++;
 }

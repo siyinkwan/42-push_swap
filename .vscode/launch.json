@@ -7,9 +7,11 @@
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [
-                "5",
-                "8",
-                "17"
+                "36",
+                "2222",
+                "10",
+                "87295",
+                "10000000"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
