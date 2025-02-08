@@ -1,4 +1,5 @@
 #include "push_swap.h"
+int op_count = 0;
 
 void    swap(t_stack *stack)
 {
@@ -74,57 +75,68 @@ void    r_rotate(t_stack *stack)
 void    sa(t_stack *stack_a)
 {
     swap(stack_a);
+    op_count++;
 }
 
 void    sb(t_stack *stack_b)
 {
     swap(stack_b);
+    op_count++;
 }
 
 void    ss(t_stack *stack_a, t_stack *stack_b)
 {
     swap(stack_a);
     swap(stack_b);
+    op_count++;
 }
 
 void    pa(t_stack *stack_b, t_stack *stack_a)
 {
     push(stack_b, stack_a);
+    op_count++;
 }
 
 void    pb(t_stack *stack_a, t_stack *stack_b)
 {
     push(stack_a, stack_b);
+    op_count++;
 }
 
 void    ra(t_stack *stack_a)
 {
     rotate(stack_a);
+    op_count++;
 }
 
 void    rb(t_stack *stack_b)
 {
     rotate(stack_b);
+    op_count++;
 }
 
 void    rr(t_stack *stack_a, t_stack *stack_b)
 {
     rotate(stack_a);
     rotate(stack_b);
+    op_count++;
 }
 
 void    rra(t_stack *stack_a)
 {
     r_rotate(stack_a);
+    op_count++;
 }
 
 void    rrb(t_stack *stack_b)
 {
     r_rotate(stack_b);
+    op_count++;
 }
 
 void    rrr(t_stack *stack_a, t_stack *stack_b)
 {
     r_rotate(stack_a);
     r_rotate(stack_b);
+    op_count++;
 }

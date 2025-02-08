@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 
+extern  int op_count;
+
 typedef struct s_node{
     int value;
     struct s_node *next;
@@ -29,5 +31,7 @@ void    rrr(t_stack *stack_a, t_stack *stack_b);
 t_stack    *get_stack(char **arr);
 int    is_sorted(t_stack *stack);
 void    print_stack(t_stack *stack);
-
+int    get_middle_value(t_stack *stack);
+void    get_pivots(t_stack *stack, int *pivot_min, int *pivot_max);
+void    split_stack(t_stack *stack_a, t_stack *stack_b);
 #endif
