@@ -32,6 +32,14 @@ t_stack    *get_stack(char **arr);
 int    is_sorted(t_stack *stack);
 void    print_stack(t_stack *stack);
 int    get_middle_value(t_stack *stack);
-void    get_pivots(t_stack *stack, int *pivot_min, int *pivot_max);
-void    split_stack(t_stack *stack_a, t_stack *stack_b);
+void    sort_five(t_stack *stack_a, t_stack *stack_b);
+void    push_min(t_stack *stack_a, t_stack *stack_b, int first_push);
+//void    get_pivots(t_stack *stack, int *pivot_min, int *pivot_max);
+void    split_stack_a(t_stack *stack_a, t_stack *stack_b);
+void    split_stack_b(t_stack *stack_a, t_stack *stack_b);
+int    get_pivots_a(t_stack *stack, int *pivot_min, int *pivot_max);
+int    get_pivots_b(t_stack *stack, int *pivot_min, int *pivot_max);
+void    recursive_sort_a(t_stack *stack_a, t_stack *stack_b);
+void    recursive_sort_b(t_stack *stack_a, t_stack *stack_b);
+
 #endif

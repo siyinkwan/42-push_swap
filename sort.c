@@ -45,3 +45,22 @@ void    sort_five(t_stack *stack_a, t_stack *stack_b)
     pa(stack_b, stack_a);
 }
 
+void    recursive_sort_a(t_stack *stack_a, t_stack *stack_b)
+{
+    if (stack_a->size <= 1)
+        return;
+    split_stack_a(stack_a, stack_b);
+    recursive_sort_a(stack_a, stack_b);
+    while (stack_b->size > 0)
+        pa(stack_b, stack_a);
+}
+
+void    recursive_sort_b(t_stack *stack_a, t_stack *stack_b)
+{
+    if (stack_b->size == 0)
+        return;
+    split_stack_b(stack_a, stack_b);
+    recursive_sort_b(stack_a, stack_b);
+    while (stack_b->size > 0)
+        pa(stack_b, stack_a);
+}

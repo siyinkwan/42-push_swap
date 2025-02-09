@@ -61,17 +61,6 @@ t_node    *create_node(int value)
     return(new_node);
 }
 
-// int main(int argc, char **argv)
-// {
-//     if (argc == 1)
-//         return (0);
-//     t_node *head_a;
-//     t_node *head_b;
-
-//     head_a = get_stack(argv);
-//     head_b = NULL;
-
-// }
 
 
 
