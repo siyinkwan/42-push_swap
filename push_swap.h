@@ -41,5 +41,6 @@ int    get_pivots_a(t_stack *stack, int *pivot_min, int *pivot_max);
 int    get_pivots_b(t_stack *stack, int *pivot_min, int *pivot_max);
 void    recursive_sort_a(t_stack *stack_a, t_stack *stack_b);
 void    recursive_sort_b(t_stack *stack_a, t_stack *stack_b);
+void    sort_stack(t_stack *stack_a, t_stack *stack_b);
 
 #endif

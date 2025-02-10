@@ -61,7 +61,7 @@ void    split_stack_b(t_stack *stack_a, t_stack *stack_b)
             if (stack_a->size != 0)
                 ra(stack_a);
         }
-        else if (current->value >= pivot_min && current->value < pivot_max)
+        else if (current->value >= pivot_min && current->value <= pivot_max)
             current = current->next;
         else if (current->value < pivot_min)
         {
