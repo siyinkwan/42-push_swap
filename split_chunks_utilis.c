@@ -15,6 +15,59 @@ int    get_middle_value(t_stack *stack)
     return (current->value);
 }
 
+
+int    get_pivots_a(t_stack *stack, int *pivot_min, int *pivot_max)
+{
+    if(!stack || !stack->top)
+        return (-1);
+
+    int temp;
+
+    *pivot_min = stack->top->value;
+    *pivot_max = stack->bottom->value;
+    if (*pivot_min > *pivot_max)
+    {
+        temp = *pivot_min;
+        *pivot_min = *pivot_max;
+        *pivot_max = temp;
+    }
+    return (0);
+}
+
+int    get_pivots_b(t_stack *stack, int *pivot_min, int *pivot_max)
+{
+    if(!stack || !stack->top)
+        return (-1);
+    
+    int i;
+    t_node  *current;
+    int temp;
+    
+    i = 0;
+    current = stack->top;
+    *pivot_min = current->value;
+    *pivot_max = current->value;
+    while (current)
+    {
+        if (i == stack->size / 3)
+            *pivot_min = current->value;
+        if (i == 2 * (stack->size) / 3)
+            *pivot_max = current->value;
+        current = current->next;
+        i++;
+    }
+
+    if (*pivot_min > *pivot_max)
+    {
+        temp = *pivot_min;
+        *pivot_min = *pivot_max;
+        *pivot_max = temp;
+    }
+    return (0);
+}
+
+
+
 // void    get_pivots(t_stack *stack, int *pivot_min, int *pivot_max)
 // {
 //     int first;
@@ -59,53 +112,3 @@ int    get_middle_value(t_stack *stack)
 //     if (stack_b->size == 3)
 //         sort_three(stack_b);
 // }
-
-int    get_pivots_a(t_stack *stack, int *pivot_min, int *pivot_max)
-{
-    if(!stack || !stack->top)
-        return (-1);
-
-    t_node  *current;
-
-    *pivot_min = stack->top->value;
-    *pivot_max = stack->top->value;
-    current = stack->top->next;
-    while (current)
-    {
-        if (current->value > *pivot_min)
-            *pivot_max = current->value;
-        current = current->next;
-    }
-    return (0);
-}
-
-int    get_pivots_b(t_stack *stack, int *pivot_min, int *pivot_max)
-{
-    if(!stack || !stack->top)
-        return (-1);
-    
-    int i;
-    t_node  *current;
-    int temp;
-    
-    i = 0;
-    current = stack->top;
-    *pivot_min = current->value;
-    while (current)
-    {
-        if (i == stack->size / 3)
-            *pivot_min = current->value;
-        if (i == 2 * (stack->size) / 3)
-            *pivot_max = current->value;
-        current = current->next;
-        i++;
-    }
-
-    if (*pivot_min > *pivot_max)
-    {
-        temp = *pivot_min;
-        *pivot_min = *pivot_max;
-        *pivot_max = temp;
-    }
-    return (0);
-}

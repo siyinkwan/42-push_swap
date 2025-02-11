@@ -7,13 +7,11 @@
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [
-                "5",
-                "8",
                 "3",
-                "7",
-                "1",
                 "6",
                 "4",
+                "5",
+                "1",
                 "2"
             ],
             "stopAtEntry": false,

@@ -17,8 +17,8 @@ t_stack    *get_stack(char **arr)
         t_node *node = malloc(sizeof(t_node));
         if (!node)
             return (NULL); 
-        node->value = atoi(arr[i]);
-
+        node->value = atoi(arr[i]);        //change to ft_atoi
+        node->next = NULL;
         if (stack->top == NULL)
         {
             stack->top = node;
@@ -34,6 +34,27 @@ t_stack    *get_stack(char **arr)
     }
     return (stack);
 }
+
+void    check_int()
+{
+
+}
+
+void	check_duplication()
+{
+
+}
+
+void    free_stacks()
+{
+
+}
+
+void    handle_error()
+{
+    
+}
+
 
 // FOR TESTING:
 #include <stdio.h>
