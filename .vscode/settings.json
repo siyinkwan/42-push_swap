@@ -4,5 +4,7 @@
         "bitset": "c",
         "chrono": "c",
         "algorithm": "c"
-    }
+    },
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4
 }

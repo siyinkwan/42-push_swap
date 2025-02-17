@@ -1,126 +1,158 @@
 #include "push_swap.h"
 
-t_stack    *get_stack(char **arr)
+void    get_stack(t_data *data, int size, char **argv)
 {
     int i;
-    t_stack *stack = malloc(sizeof(t_stack));
+	int	*before_map;
 
-    if (!stack)
-        return (NULL);
-    stack->top = NULL;
-    stack->bottom = NULL;
-    stack->size = 0;
-
+	size = size - 1;
+	pre_get_stack(data, &data->stack_a, size);
+	pre_get_stack(data, &data->stack_b, size);
+	before_map = malloc(sizeof(int) * size);
+	if (!before_map)
+		handle_error(data);
     i = 1;
-    while (arr[i])
+    while (i < size)
+	{
+        if(!check_val(argv[i]))
+		{
+			printf("TEST VAL\n");
+            handle_error(data);
+		}
+        before_map[i - 1] = ft_atoi(argv[i]);
+		i++;
+	}
+	if(check_dup(size, before_map))
+	{	
+		printf("TEST DUP\n");
+        handle_error(data);
+	}
+	rank_mapping(before_map, data->stack_a.stack, size);
+	data->stack_a.bottom = size;
+	free(before_map);
+}
+
+void	pre_get_stack(t_data *data, t_stack *pre_stack, int size)
+{
+		int	i;
+		
+		i = 0;
+		pre_stack->stack = malloc(sizeof(int) * size);
+		if (!pre_stack->stack)
+			handle_error(data);
+		pre_stack->top = 0;
+		pre_stack->bottom = 0;
+		pre_stack->size = size;
+		while(i < size)
+		{
+			pre_stack->stack[i] = 0;
+			i++;
+		}
+}
+
+int    check_val(char *str)
+{
+    long long   num;
+    int         sign;
+
+    num = 0;
+    sign = 1;
+    if (*str == '\0')
+        return (0);
+    if (*str == '+' || *str == '-')
     {
-        t_node *node = malloc(sizeof(t_node));
-        if (!node)
-            return (NULL); 
-        node->value = atoi(arr[i]);        //change to ft_atoi
-        node->next = NULL;
-        if (stack->top == NULL)
+        if (*str == '-')
+            sign = -1;
+        str++;
+    }
+    if (*str == '\0')
+        return (0);
+    while (*str)
+    {   
+        if (!(*str >= '0' && *str <= '9'))
+            return (0);
+        num = num * 10 + (*str - '0');
+        if ((sign == 1 && num > INT_MAX) || (sign == -1 && -num < INT_MIN))
+            return (0);
+        str++;
+    }
+    return (1);
+}
+
+
+
+int	check_dup(int size, int *arr)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (i < size)
+    {
+        j = i + 1;
+        while (j < size)
         {
-            stack->top = node;
-            stack->bottom = node;
+            if (arr[i] == arr[j])
+                return (1);
+            j++;
         }
-        else
-        {
-            stack->bottom->next = node; 
-            stack->bottom = node;
-        }
-        stack->size++;    
         i++;
     }
-    return (stack);
+    return (0);
 }
 
-void    check_int()
+void    rank_mapping(int *value, int *mapping, int size)
 {
+    int	i;
+	int j;
+	int	count;
 
+	i = 0;
+	while (i < size)
+	{	
+		count = 0;
+		j = 0;
+		while(j < size)
+		{
+			if (value[i] > value[j])
+				count++;
+			j++;
+		}
+		mapping[i] = count;
+		i++;
+	}
 }
 
-void	check_duplication()
+void    handle_error(t_data *data)
 {
-
+    write(2, "Error\n", 6);
+    free(data->stack_a.stack);
+    free(data->stack_b.stack);
+    exit(1);
 }
 
-void    free_stacks()
+
+int	ft_atoi(const char *nptr)
 {
+	int	i;
+	int	sign;
+	int	res;
 
+	i = 0;
+	sign = 1;
+	res = 0;
+	while ((nptr[i] >= '\t' && nptr[i] <= '\r') || nptr[i] == ' ')
+		i++;
+	if (nptr[i] == '+' || nptr[i] == '-')
+	{
+		if (nptr[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		res = res * 10 + nptr[i] - '0';
+		i++;
+	}
+	return (res * sign);
 }
-
-void    handle_error()
-{
-    
-}
-
-
-// FOR TESTING:
-#include <stdio.h>
-
-void    print_stack(t_stack *stack)
-{
-    t_node *current;
-
-    current = stack->top;
-    while (current != NULL)
-    {
-        printf("%d\n", current->value);
-        current = current->next;
-    }
-    //printf("\nstack size: %d",stack->size);
-}
-
-t_node    *create_node(int value)
-{
-    t_node *new_node; 
-    
-    new_node = malloc(sizeof(t_node));
-    new_node->value = value;
-    new_node->next = NULL;
-    return(new_node);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-////////////////////TESTING SCRIPT///////////////////////////////////////
-    // head_b = create_node(10);
-    // head_b->next = create_node(42);
-
-    //test swap
-    // printf("%s","original stack a:\n");
-    // print_stack(head_a);
-    // sa(&head_a);
-    // printf("%s","stack a after sa:\n");
-    // print_stack(head_a);
-
-    //test push
-    // printf("%s","original stack a:\n");
-    // print_stack(head_a);
-    // printf("%s","original stack b:\n");
-    // print_stack(head_b);
-    // pa(&head_b, &head_a);
-    // printf("\n\n%s","stack a after pb:\n");
-    // print_stack(head_a);
-    // printf("%s","stack b after pb:\n");
-    // print_stack(head_b);
-
-    //test reverse
-    // printf("%s","original stack a:\n");
-    // print_stack(head_a);
-    // rra(&head_a);
-    // printf("%s","stack a after rra:\n");
-    // print_stack(head_a);

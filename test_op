@@ -1,0 +1,88 @@
+#include "push_swap.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+// Function to print stack details for debugging
+void print_stack(t_stack *stack, char *name)
+{
+    printf("%s (size: %d, top index: %d, bottom index: %d): ", 
+           name, stack->size, stack->top, stack->bottom);
+    
+    int index = stack->top;
+    for (int i = 0; i < stack->size; i++)
+    {
+        printf("%d ", stack->stack[index]);
+        index = (index + 1) % stack->size;
+    }
+    printf("\n");
+}
+
+int main()
+{
+    // Define stack sizes
+    int size = 5;
+    
+    // Allocate memory for stack structures
+    t_stack stack_a;
+    t_stack stack_b;
+
+    // Allocate stack arrays
+    stack_a.stack = (int *)malloc(size * sizeof(int));
+    stack_b.stack = (int *)malloc(size * sizeof(int));
+
+    // Initialize stack_a
+    stack_a.size = size;
+    stack_a.top = 0;
+    stack_a.bottom = size - 1;
+    for (int i = 0; i < size; i++)
+        stack_a.stack[i] = i + 1;  // Fill stack_a with values [1, 2, 3, 4, 5]
+
+    // Initialize stack_b as empty
+    stack_b.size = size;
+    stack_b.top = 0;
+    stack_b.bottom = 0;
+    for (int i = 0; i < size; i++)
+        stack_b.stack[i] = 0;  // Empty stack
+
+    printf("Initial Stacks:\n");
+    print_stack(&stack_a, "Stack A");
+    print_stack(&stack_b, "Stack B");
+
+    // Perform operations
+    printf("\nPerforming sa (swap A)\n");
+    sa(&stack_a);
+    print_stack(&stack_a, "Stack A");
+	print_stack(&stack_b, "Stack B");
+
+    printf("\nPerforming pb (push top of A to B)\n");
+    pb(&stack_a, &stack_b);
+    print_stack(&stack_a, "Stack A");
+    print_stack(&stack_b, "Stack B");
+
+    printf("\nPerforming pa (push top of B to A)\n");
+    pa(&stack_b, &stack_a);
+    print_stack(&stack_a, "Stack A");
+    print_stack(&stack_b, "Stack B");
+
+    printf("\nPerforming ra (rotate A)\n");
+    ra(&stack_a);
+    print_stack(&stack_a, "Stack A");
+
+    printf("\nPerforming rra (reverse rotate A)\n");
+    rra(&stack_a);
+    print_stack(&stack_a, "Stack A");
+
+    printf("\nPerforming rb (rotate B)\n");
+    rb(&stack_b);
+    print_stack(&stack_b, "Stack B");
+
+    printf("\nPerforming rrb (reverse rotate B)\n");
+    rrb(&stack_b);
+    print_stack(&stack_b, "Stack B");
+
+    // Free memory
+    free(stack_a.stack);
+    free(stack_b.stack);
+
+    return 0;
+}

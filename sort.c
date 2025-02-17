@@ -74,7 +74,7 @@ void    recursive_sort_a(t_stack *stack_a, t_stack *stack_b, int *count)
 
 void    recursive_sort_b(t_stack *stack_a, t_stack *stack_b, int *count)
 {
-    if (is_sorted(stack_b) || stack_b->size <= 1)
+    if (sorted(stack_b) || stack_b->size <= 1)
         return;
     else if (stack_b->size <= 5 && stack_b->size != 4)
     {
@@ -100,16 +100,14 @@ void    recursive_sort_b(t_stack *stack_a, t_stack *stack_b, int *count)
     // }
 }
 
-void    sort_stack(t_stack *stack_a, t_stack *stack_b)
+void    sort_stack(t_data *data)
 {
     int count = 0;
-    if (is_sorted(stack_a))
+    if (sorted(data->stack_a) ||data->stack_a.size <= 1 )
         return;
-    else if (stack_a->size <= 1)
-        return;
-    else if (stack_a->size == 2)
+    else if (data->stack_a.size == 2)
         sort_two(stack_a);
-    else if (stack_a->size == 3)
+    else if (data->stack_a->size == 3)
         sort_three(stack_a);
     else if (stack_a->size == 5)
         sort_five(stack_a, stack_b, &count);

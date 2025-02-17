@@ -3,75 +3,113 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void    swap(t_stack *stack)
+// void	swap(t_stack *stack)
+// {
+// 	int	temp;
+
+// 	if (stack->size < 2)
+// 		return;
+// 	temp = stack->stack[stack->top];
+// 	stack->stack[stack->top] = stack->stack[stack->top + 1];
+// 	stack->stack[stack->top + 1] = temp;
+// }
+
+/// TO rewrite
+void	swap(t_stack *stk)
 {
-    if (stack->size < 2)
-        return;
+	int	tmp;
 
-    t_node  *second;
-
-    second = stack->top->next;
-    stack->top->next = second->next;
-    second->next = stack->top;
-    stack->top = second;
+	if (stk->stack[next_down(stk, stk->top)] == 0)
+		return ;
+	tmp = stk->stack[next_down(stk, stk->top)];
+	stk->stack[next_down(stk, stk->top)] = stk->stack[stk->top];
+	stk->stack[stk->top] = tmp;
 }
 
-void    push(t_stack *stack_a, t_stack *stack_b)
+void	push(t_stack *src, t_stack *dest)
 {
-    if (stack_a->top == NULL)
-        return;
-    
-    t_node *temp;
+	int	dest_i;
 
-    temp = stack_a->top;
-    stack_a->top = stack_a->top->next;
-    if (stack_a->top == NULL)
-        stack_a->bottom = NULL;
-    temp->next = stack_b->top;
-    stack_b->top = temp;
-    if (stack_b->bottom == NULL)
-        stack_b->bottom = temp;
-    stack_a->size--;
-    stack_b->size++;
+	if (dest->size == length(dest))
+		return ;
+	dest_i = next_up(dest, dest->top);
+	dest->stack[dest_i] = src->stack[src->top];
+	dest->top = dest_i;
+	src->stack[src->top] = 0;
+	src->top = next_down(src, src->top);
 }
 
-void    rotate(t_stack *stack)
+void	rotate(t_stack *stk)
 {
-    if (stack->size < 2)
-        return;
-
-    t_node  *first;
-    t_node  *current;
-
-    first = stack->top;
-    current = stack->top;
-    stack->top = stack->top->next;
-    while (current->next != NULL)
-        current = current->next;
-    first->next = NULL;
-    current->next = first;
-    stack->bottom = first;
+	if (stk->size == length(stk))
+	{
+		stk->bottom = stk->top;
+		stk->top = next_down(stk, stk->top);
+	}
+	else
+	{
+		stk->bottom = next_down(stk, stk->bottom);
+		stk->stack[stk->bottom] = stk->stack[stk->top];
+		stk->stack[stk->top] = 0;
+		stk->top = next_down(stk, stk->top);
+	}
 }
 
-void    r_rotate(t_stack *stack)
+void	r_rotate(t_stack *stk)
 {
-    if (stack->size < 2)
-        return;
+	if (stk->size == length(stk))
+	{
+		stk->top = stk->bottom;
+		stk->bottom = next_up(stk, stk->bottom);
+	}
+	else
+	{
+		stk->top = next_up(stk, stk->top);
+		stk->stack[stk->top] = stk->stack[stk->bottom];
+		stk->stack[stk->bottom] = 0;
+		stk->bottom = next_up(stk, stk->bottom);
+	}
+}
 
-    t_node  *current;
-    t_node  *prev;
+int	next_up(t_stack *stk, int index)
+{
+	if (length(stk) == 0)
+		return (index);
+	if (index == 0)
+		return (stk->size - 1);
+	else
+		return (index - 1);
+}
 
-    current = stack->top;
-    prev = NULL;
-    while (current->next != NULL)
-    {
-        prev = current;
-        current = current->next;
-    }
-    prev->next = NULL;
-    current->next = stack->top;
-    stack->top = current;
-    stack->bottom = prev;
+int	next_down(t_stack *stk, int index)
+{
+	if (length(stk) == 0)
+		return (index);
+	if (index == stk->size - 1)
+		return (0);
+	else
+		return (index + 1);
+}
+
+// int	value(t_stack *stk, int n)
+// {
+// 	int	i;
+
+// 	i = stk->top;
+// 	while (--n > 0)
+// 		i = next_down(stk, i);
+// 	return (stk->stack[i]);
+// }
+
+
+int	length(t_stack *stk)
+{
+	if (stk->top == stk->bottom && stk->stack[stk->top] == 0)
+		return (0);
+	if (stk->top > stk->bottom)
+		return ((stk->size - stk->top) + (stk->bottom + 1));
+	else
+		return (stk->bottom - stk->top + 1);
 }
 
 void    sa(t_stack *stack_a)
@@ -153,3 +191,4 @@ void    rrr(t_stack *stack_a, t_stack *stack_b)
     
     printf("rrr\n");
 }
+

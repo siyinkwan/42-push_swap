@@ -15,6 +15,8 @@ int    get_middle_value(t_stack *stack)
     return (current->value);
 }
 
+//temporary pivot logic, to optimze later
+int	get_pivots(t_stack)
 
 int    get_pivots_a(t_stack *stack, int *pivot_min, int *pivot_max)
 {
