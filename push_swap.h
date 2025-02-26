@@ -31,14 +31,14 @@ typedef struct s_data
 
 extern int count;
 
-void	swap(t_stack *stk);
+void	swap(t_stack *stack);
 void	push(t_stack *src, t_stack *dest);
-void	rotate(t_stack *stk);
-void	r_rotate(t_stack *stk);
+void	rotate(t_stack *stack);
+void	r_rotate(t_stack *stack);
 
-int		next_up(t_stack *stk, int index);
+int		get_previous_index(t_stack *stack, int index);
 int		length(t_stack *stack);
-int		next_down(t_stack *stk, int index);
+int		get_next_index(t_stack *stack, int index);
 
 void    sa(t_stack *stack_a);
 void    sb(t_stack *stack_b);
@@ -55,23 +55,24 @@ void    rrr(t_stack *stack_a, t_stack *stack_b);
 void    get_stack(t_data *data, int argc, char **argv);
 void	pre_get_stack(t_data *data, t_stack *pre_stack, int size);
 int		check_val(char *str);
+int		get_nth_value(t_stack *stack, int n);
 int		ft_atoi(const char *nptr);
 int		check_dup(int size, int *arr);
 void    rank_mapping(int *data, int *mapping, int size);
 void    handle_error(t_data *data);
 
-// t_stack    *get_stack(char **arr);
-// int    is_sorted(t_stack *stack);
-// void    print_stack(t_stack *stack);
-// int    get_middle_value(t_stack *stack);
-// void    sort_five(t_stack *stack_a, t_stack *stack_b, int *count);
-// void    push_min(t_stack *stack_a, t_stack *stack_b, int first_push);
-// void    split_stack_a(t_stack *stack_a, t_stack *stack_b, int *count);
-// void    split_stack_b(t_stack *stack_a, t_stack *stack_b, int *count);
-// int    get_pivots_a(t_stack *stack, int *pivot_min, int *pivot_max);
-// int    get_pivots_b(t_stack *stack, int *pivot_min, int *pivot_max);
-// void    recursive_sort_a(t_stack *stack_a, t_stack *stack_b, int *count);
-// void    recursive_sort_b(t_stack *stack_a, t_stack *stack_b, int *count);
-// void    sort_stack(t_stack *stack_a, t_stack *stack_b);
+int		sorted(t_stack *stack);
+void	handle_min_two(t_data *data);
+int		get_min(t_stack *stack);
+void	push_min(t_stack *stack_a, t_stack *stack_b, int first_push);
+void    sort_stack(t_data *data);
+void    sort_two_a(t_stack *stack);
+void    sort_three_a(t_stack *stack);
+void    sort_five_a(t_data *data);
 
+
+
+//for testing
+void print_stack_1(t_stack *stack);
+void print_stack_2(int *stack, int size);
 #endif

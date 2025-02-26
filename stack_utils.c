@@ -1,55 +1,5 @@
 #include "push_swap.h"
 
-void    get_stack(t_data *data, int size, char **argv)
-{
-    int i;
-	int	*before_map;
-
-	size = size - 1;
-	pre_get_stack(data, &data->stack_a, size);
-	pre_get_stack(data, &data->stack_b, size);
-	before_map = malloc(sizeof(int) * size);
-	if (!before_map)
-		handle_error(data);
-    i = 1;
-    while (i < size)
-	{
-        if(!check_val(argv[i]))
-		{
-			printf("TEST VAL\n");
-            handle_error(data);
-		}
-        before_map[i - 1] = ft_atoi(argv[i]);
-		i++;
-	}
-	if(check_dup(size, before_map))
-	{	
-		printf("TEST DUP\n");
-        handle_error(data);
-	}
-	rank_mapping(before_map, data->stack_a.stack, size);
-	data->stack_a.bottom = size;
-	free(before_map);
-}
-
-void	pre_get_stack(t_data *data, t_stack *pre_stack, int size)
-{
-		int	i;
-		
-		i = 0;
-		pre_stack->stack = malloc(sizeof(int) * size);
-		if (!pre_stack->stack)
-			handle_error(data);
-		pre_stack->top = 0;
-		pre_stack->bottom = 0;
-		pre_stack->size = size;
-		while(i < size)
-		{
-			pre_stack->stack[i] = 0;
-			i++;
-		}
-}
-
 int    check_val(char *str)
 {
     long long   num;
@@ -118,7 +68,7 @@ void    rank_mapping(int *value, int *mapping, int size)
 				count++;
 			j++;
 		}
-		mapping[i] = count;
+		mapping[i] = count + 1;
 		i++;
 	}
 }
@@ -129,6 +79,20 @@ void    handle_error(t_data *data)
     free(data->stack_a.stack);
     free(data->stack_b.stack);
     exit(1);
+}
+
+int get_nth_value(t_stack *stack, int n)
+{
+    int i;
+
+    if (stack == NULL || n <= 0 || length(stack) < n)
+        return -1;
+
+    i = stack->top;
+    while (--n > 0)
+        i = get_next_index(stack, i);
+    
+    return (stack->stack[i]);
 }
 
 
