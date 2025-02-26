@@ -2,8 +2,8 @@
 
 void	sort_two_a(t_stack *stack_a)
 {
-    int top = get_nth_value(stack_a, 1);
-	int bot = get_nth_value(stack_a, 2);
+    int top = get_nth_value(stack_a, 1, 1);
+	int bot = get_nth_value(stack_a, 2, 1);
 	if (top > bot)
 		sa(stack_a);
 	return;
@@ -11,9 +11,9 @@ void	sort_two_a(t_stack *stack_a)
 
 void sort_three_a(t_stack *stack_a)
 {
-    int top = get_nth_value(stack_a, 1);
-    int mid = get_nth_value(stack_a, 2);
-    int bot = get_nth_value(stack_a, 3);
+    int top = get_nth_value(stack_a, 1, 1);
+    int mid = get_nth_value(stack_a, 2, 1);
+    int bot = get_nth_value(stack_a, 3, 1);
 
 	if (top > mid && bot > mid && bot > top)
 		sa(stack_a);

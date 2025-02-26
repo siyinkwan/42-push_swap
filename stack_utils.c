@@ -81,7 +81,7 @@ void    handle_error(t_data *data)
     exit(1);
 }
 
-int get_nth_value(t_stack *stack, int n)
+int get_nth_value(t_stack *stack, int n, bool from_top)
 {
     int i;
 
@@ -90,7 +90,12 @@ int get_nth_value(t_stack *stack, int n)
 
     i = stack->top;
     while (--n > 0)
-        i = get_next_index(stack, i);
+	{
+		if (from_top)
+        	i = get_next_index(stack, i);
+		else
+			i = get_previous_index(stack, i);
+	}
     
     return (stack->stack[i]);
 }

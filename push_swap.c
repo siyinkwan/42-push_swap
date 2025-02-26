@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <stdio.h>
 
-//int count = 0; 
-
 int	main(int argc, char **argv)
 {
 	t_data	data;
