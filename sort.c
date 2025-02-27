@@ -2,6 +2,8 @@
 
 void    sort_stack(t_data *data)
 {
+	t_bucket	bucket;
+
     if (data->stack_a.size <= 1 || sorted(&data->stack_a))
         return;
 	else if (data->stack_a.size == 2)
@@ -11,53 +13,61 @@ void    sort_stack(t_data *data)
 	else if (data->stack_a.size == 5)
         sort_five_a(data);
 	else
-		quick_sort(data);
+	{
+		bucket.pos = 0;
+		bucket.size = data->stack_a.size;
+		quick_sort(data, &bucket);
+	}
 }
 
-void	partition_stack(t_data	*data, t_bucket	*bucket, t_partition *partition)
+void	quick_sort(t_data *data, t_bucket *bucket)
+{
+	t_partition	partition;
+
+	if (bucket->size <= 1)
+		return;
+	partition_stack(data, bucket, &partition);
+	if (partition.max.size > 0)
+		quick_sort(data, &partition.max);
+	if (partition.mid.size > 0)
+		quick_sort(data, &partition.mid);
+	if (partition.min.size > 0)
+		quick_sort(data, &partition.min);
+}
+
+void	partition_stack(t_data *data, t_bucket *bucket, t_partition *partition)
 {
 	int	first_bucket_value;
 	int	pivot_1;
 	int	pivot_2;
 
-    if (bucket->pos = 0 || bucket->pos == 1)
-        pivot_1 = 2 * bucket->size / 3;
-
-	if (bucket->pos = 2 || bucket->pos == 3)
-        pivot_1 = bucket->size / 2;
+	set_pivots(data, bucket, &pivot_1, &pivot_2);
 	pre_position(bucket->pos, partition);
-	while(bucket->size > 0)
+
+	while (bucket->size > 0)
 	{
 		first_bucket_value = get_nth_bucket_value(data, bucket, 1);
-		if (first_bucket_value > pivot_1)
 
-
-
-
-
-
+		if (first_bucket_value < pivot_1)
+			move_to_min(data, bucket, partition);
+		else if (first_bucket_value < pivot_2)
+			move_to_mid(data, bucket, partition);
+		else
+			move_to_max(data, bucket, partition);
 
 		bucket->size--;
 	}
-
 }
 
-void	set_pivots(t_data	*data, t_bucket	*bucket, int *pivot_1, int *pivot_2)
+void	set_pivots(t_data *data, t_bucket *bucket, int *pivot_1, int *pivot_2)
 {
-	
-}
+	int	min;
+	int max;
 
-int	get_nth_bucket_value(t_data *data, t_bucket	*bucket, int n)
-{
-	t_stack	*stack;
-	bool	from_top;
-
-	if (bucket->pos == 0 || bucket->pos == 1)
-		stack = &data->stack_a;
-	else
-		stack = &data->stack_b;
-	from_top = (bucket->pos == 0 || bucket->pos == 2);
-	return(get_nth_value(stack, n, from_top));
+	min = get_min(data, bucket);
+	max = get_max(data, bucket);
+	*pivot_1 = min + (max - min) / 3;
+	*pivot_2 = min + 2 * (max - min) / 3;
 }
 
 void pre_position(int pos, t_partition	*partition)

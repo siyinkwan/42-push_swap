@@ -68,15 +68,25 @@ void    rank_mapping(int *data, int *mapping, int size);
 void    handle_error(t_data *data);
 
 int		sorted(t_stack *stack);
+void	quick_sort(t_data *data, t_bucket *bucket);
 void	handle_min_two(t_data *data);
 void    sort_stack(t_data *data);
+void	partition_stack(t_data	*data, t_bucket	*bucket, t_partition *partition);
+void	set_pivots(t_data *data, t_bucket *bucket, int *pivot_1, int *pivot_2);
+void	pre_position(int pos, t_partition	*partition);
 void    sort_two_a(t_stack *stack);
 void    sort_three_a(t_stack *stack);
 void    sort_five_a(t_data *data);
 
-int	get_nth_bucket_value(t_data *data,t_bucket	*bucket, int n);
+int		get_nth_bucket_value(t_data *data,t_bucket	*bucket, int n);
+int		get_min(t_data *data, t_bucket *bucket);
+int		get_max(t_data *data, t_bucket *bucket);
+void	move_to_min(t_data *data, t_bucket *bucket, t_partition *partition);
+void	move_to_mid(t_data *data, t_bucket *bucket, t_partition *partition);
+void	move_to_max(t_data *data, t_bucket *bucket, t_partition *partition);
 
 //for testing
 void print_stack_1(t_stack *stack);
 void print_stack_2(int *stack, int size);
+
 #endif

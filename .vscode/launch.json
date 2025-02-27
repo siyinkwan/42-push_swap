@@ -5,15 +5,14 @@
             "name": "C/C++: gcc build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/push_swap",
+            "program": "${workspaceFolder}/a.out",
             "args": [
                 "2",
                 "3",
                 "1",
-                "4",
-                "5"
+				"6"
             ],
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,

@@ -9,7 +9,8 @@
 		"string_view": "c",
 		"ranges": "c",
 		"span": "c",
-		"random": "c"
+		"random": "c",
+		"stdbool.h": "c"
 	},
     "editor.insertSpaces": false,
     "editor.tabSize": 4

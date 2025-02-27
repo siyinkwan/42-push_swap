@@ -100,7 +100,6 @@ int get_nth_value(t_stack *stack, int n, bool from_top)
     return (stack->stack[i]);
 }
 
-
 int	ft_atoi(const char *nptr)
 {
 	int	i;
