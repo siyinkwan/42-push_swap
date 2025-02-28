@@ -7,10 +7,14 @@
             "request": "launch",
             "program": "${workspaceFolder}/a.out",
             "args": [
-                "2",
-                "3",
                 "1",
-				"6"
+                "8",
+                "3",
+				"6",
+				"4",
+				"2",
+				"5",
+				"7"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

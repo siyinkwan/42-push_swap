@@ -24,8 +24,16 @@ void	quick_sort(t_data *data, t_bucket *bucket)
 {
 	t_partition	partition;
 
-	if (bucket->size <= 1)
-		return;
+	if (bucket->size <= 3)
+	{
+	if (bucket->size == 3)
+		sort_three(data, bucket);
+	else if (bucket->size == 2)
+		sort_two(data, bucket);
+	else if (bucket->size == 1)
+		sort_one(data, bucket);
+	return ;
+	}
 	partition_stack(data, bucket, &partition);
 	if (partition.max.size > 0)
 		quick_sort(data, &partition.max);
@@ -86,4 +94,65 @@ void pre_position(int pos, t_partition	*partition)
     partition->min.pos = pos_map[pos][0];
     partition->mid.pos = pos_map[pos][1];
     partition->max.pos = pos_map[pos][2];
+}
+
+void	sort_one(t_data *data, t_bucket *bucket)
+{
+	if (bucket->pos == 1)
+		rra(&data->stack_a);
+	else if (bucket->pos == 2)
+		pa(&data->stack_b, &data->stack_a);
+	else if (bucket->pos == 3)
+	{
+		rrb(&data->stack_b);
+		pa(&data->stack_b, &data->stack_a);
+	}
+	bucket->size = bucket->size - 1;
+}
+
+void	sort_two(t_data *data, t_bucket *bucket)
+{
+	if (bucket->pos == 1)
+	{
+		rra(&data->stack_a);
+		rra(&data->stack_a);
+	}
+	else if (bucket->pos == 2)
+	{
+		pa(&data->stack_b, &data->stack_a);
+		pa(&data->stack_b, &data->stack_a);
+	}
+	else if (bucket->pos == 3)
+	{
+		rrb(&data->stack_b);
+		pa(&data->stack_b, &data->stack_a);
+		pa(&data->stack_b, &data->stack_a);
+	}
+	sort_two_a(&data->stack_a);
+	bucket->size = bucket->size - 2;
+}
+
+void	sort_three(t_data *data, t_bucket *bucket)
+{
+	if (bucket->pos == 1)
+	{
+		rra(&data->stack_a);
+		rra(&data->stack_a);
+		rra(&data->stack_a);
+	}
+	else if (bucket->pos == 2)
+	{
+		pa(&data->stack_b, &data->stack_a);
+		pa(&data->stack_b, &data->stack_a);
+		pa(&data->stack_b, &data->stack_a);
+	}
+	else if (bucket->pos == 3)
+	{
+		rrb(&data->stack_b);
+		pa(&data->stack_b, &data->stack_a);
+		pa(&data->stack_b, &data->stack_a);
+		pa(&data->stack_b, &data->stack_a);
+	}
+	sort_three_a(&data->stack_a);
+	bucket->size = bucket->size - 3;
 }
