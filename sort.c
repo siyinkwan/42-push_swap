@@ -31,7 +31,25 @@ void	quick_sort(t_data *data, t_bucket *bucket)
 	if (bucket->size <= 3)
 	{
 		if (bucket->size == 3)
+		{
+			// printf("Stack before sort_three: ");
+			// printf("bucket size: %d\n", bucket->size);
+			// print_stack_1(&data->stack_a);
+			// printf("Top 3 before sorting: %d, %d, %d\n",
+			// 	get_nth_value(&data->stack_a, 1, 1),
+			// 	get_nth_value(&data->stack_a, 2, 1),
+			// 	get_nth_value(&data->stack_a, 3, 1));
+		 
 			sort_three(data, bucket);
+			// printf("Stack after sort_three: ");
+			// printf("bucket size: %d\n", bucket->size);
+			// print_stack_1(&data->stack_a);
+			// printf("Top 3 after sorting: %d, %d, %d\n",
+			// 	get_nth_value(&data->stack_a, 1, 1),
+			// 	get_nth_value(&data->stack_a, 2, 1),
+			// 	get_nth_value(&data->stack_a, 3, 1));
+		 
+		}
 		else if (bucket->size == 2)
 			sort_two(data, bucket);
 		else if (bucket->size == 1)
@@ -70,10 +88,6 @@ void	partition_stack(t_data *data, t_bucket *bucket, t_partition *partition)
 		else
 			move_to_max(data, bucket, partition);
 		bucket->size--;
-		// printf("A:");
-		// print_stack_1(&data->stack_a);
-		// printf("B:");
-		// print_stack_1(&data->stack_b);
 	}
 }
 
@@ -135,7 +149,7 @@ void	sort_two(t_data *data, t_bucket *bucket)
 	else if (bucket->pos == 3)
 	{
 		rrb(&data->stack_b);
-		//rrb(&data->stack_b);////////////////////////////////////////////// TODO:review small sort logic
+		rrb(&data->stack_b);
 		pa(&data->stack_b, &data->stack_a);
 		pa(&data->stack_b, &data->stack_a);
 	}
@@ -147,53 +161,76 @@ void	sort_three(t_data *data, t_bucket *bucket)
 {
 	int max = get_max(data, bucket);
 
-	if (bucket->pos == 0) // stack_a 顶部
-		sort_three_top_a(data, max);
-	else if (bucket->pos == 1) // stack_a 底部
-		sort_three_bottom_a(data, max);
-	else if (bucket->pos == 2) // stack_b 顶部
-		sort_three_top_b(data, max);
-	else if (bucket->pos == 3) // stack_b 底部
-		sort_three_bottom_b(data, max);
-
-	bucket->size -= 3;
+	if (bucket->pos == 0)
+	{	
+		printf("BEFORE sort_three_top_a: ");
+		print_stack_1(&data->stack_a);
+		sort_three_top_a(data, bucket, max);
+		printf("AFTER sort_three_top_a: ");
+		print_stack_1(&data->stack_a);
+	}
+	else if (bucket->pos == 1)
+	{
+		printf("BEFORE sort_three_BOTTOM_a: ");
+		print_stack_1(&data->stack_a);
+		sort_three_bottom_a(data, bucket, max);
+		printf("AFTER sort_three_BOTTOM_a: ");
+		print_stack_1(&data->stack_a);
+	}
+	else if (bucket->pos == 2)
+	{ 
+		printf("BEFORE sort_three_top_B: ");
+		print_stack_1(&data->stack_a);
+		sort_three_top_b(data, bucket, max);
+		printf("AFTER sort_three_top_B: ");
+		print_stack_1(&data->stack_a);
+	}
+	else if (bucket->pos == 3)
+	{
+		printf("BEFORE sort_three_BOTTOM_B: ");
+		print_stack_1(&data->stack_a);
+		print_stack_1(&data->stack_b);
+		sort_three_bottom_b(data, bucket, max);
+		printf("AFTER sort_three_BOTTOM_B: ");
+		print_stack_1(&data->stack_a);
+		print_stack_1(&data->stack_b);
+	}
 }
 
-void	sort_three_top_a(t_data *data, int max)
+void	sort_three_top_a(t_data *data, t_bucket *bucket, int max)
 {
-	int top = get_nth_value(&data->stack_a, 1, 1);
-	int mid = get_nth_value(&data->stack_a, 2, 1);
-	//int bot = get_nth_value(&data->stack_a, 3, 1);
-
-	if (top == max)
+	if (data->stack_a.stack[data->stack_a.top] == max)
 	{
 		sa(&data->stack_a);
 		ra(&data->stack_a);
+		sa(&data->stack_a);
+		rra(&data->stack_a);
+	}
+	else if (data->stack_a.stack[get_next_index(&data->stack_a, data->stack_a.top)] == max)
+	{
+		ra(&data->stack_a);
+		sa(&data->stack_a);
+		rra(&data->stack_a);
+	}
+	bucket->pos = 0;
+	bucket->size = bucket->size - 1;
+	sort_two_a(&data->stack_a);
+	bucket->size = bucket->size - 2;
+}
+
+
+void	sort_three_bottom_a(t_data *data, t_bucket *bucket, int max)
+{
+	int top = data->stack_a.stack[data->stack_a.top];
+	int mid = data->stack_a.stack[get_next_index(&data->stack_a, data->stack_a.top)];
+	rra(&data->stack_a);
+	rra(&data->stack_a);
+	if (top == max)
+	{
 		sa(&data->stack_a);
 		rra(&data->stack_a);
 	}
 	else if (mid == max)
-	{
-		ra(&data->stack_a);
-		sa(&data->stack_a);
-		rra(&data->stack_a);
-	}
-
-	sort_two_a(&data->stack_a);
-}
-
-
-void	sort_three_bottom_a(t_data *data, int max)
-{
-	rra(&data->stack_a);
-	rra(&data->stack_a);
-	rra(&data->stack_a);//////////////////////////////////
-	if (get_nth_value(&data->stack_a, 1, 1) == max)
-	{
-		sa(&data->stack_a);
-		rra(&data->stack_a);
-	}
-	else if (get_nth_value(&data->stack_a, 2, 1) == max)
 	{
 		rra(&data->stack_a);
 	}
@@ -204,20 +241,22 @@ void	sort_three_bottom_a(t_data *data, int max)
 		sa(&data->stack_a);
 		pa(&data->stack_b, &data->stack_a);
 	}
-
+	bucket->pos = 0;
+	bucket->size = bucket->size - 1;
 	sort_two_a(&data->stack_a);
+	bucket->size = bucket->size - 2;
 }
 
 
-void	sort_three_top_b(t_data *data, int max)
+void	sort_three_top_b(t_data *data, t_bucket *bucket, int max)
 {
 	pa(&data->stack_b, &data->stack_a);
-	if (get_nth_value(&data->stack_b, 1, 1)== max)
+	if (data->stack_b.stack[data->stack_b.top] == max)
 	{
 		pa(&data->stack_b, &data->stack_a);
 		sa(&data->stack_a);
 	}
-	else if (get_nth_value(&data->stack_b, 2, 1) == max)
+	else if (data->stack_b.stack[get_next_index(&data->stack_b, data->stack_b.top)] == max)
 	{
 		sb(&data->stack_b);
 		pa(&data->stack_b, &data->stack_a);
@@ -228,21 +267,22 @@ void	sort_three_top_b(t_data *data, int max)
 		pa(&data->stack_b, &data->stack_a);
 	}
 	pa(&data->stack_b, &data->stack_a);
-
+	bucket->pos = 0;
+	bucket->size = bucket->size - 1;
 	sort_two_a(&data->stack_a);
+	bucket->size = bucket->size - 2;
 }
 
-
-void	sort_three_bottom_b(t_data *data, int max)
+void	sort_three_bottom_b(t_data *data, t_bucket *bucket, int max)
 {
 	rrb(&data->stack_b);
 	rrb(&data->stack_b);
-	if (get_nth_value(&data->stack_a, 1, 1) == max)
+	if (data->stack_b.stack[data->stack_b.top] == max)
 	{
 		pa(&data->stack_b, &data->stack_a);
 		rrb(&data->stack_b);
 	}
-	else if (get_nth_value(&data->stack_b, 2, 1) == max)
+	else if (data->stack_b.stack[get_next_index(&data->stack_b, data->stack_b.top)] == max)
 	{
 		sb(&data->stack_b);
 		pa(&data->stack_b, &data->stack_a);
@@ -254,6 +294,8 @@ void	sort_three_bottom_b(t_data *data, int max)
 		pa(&data->stack_b, &data->stack_a);
 	}
 	pa(&data->stack_b, &data->stack_a);
-
+	bucket->pos = 0;
+	bucket->size = bucket->size - 1;
 	sort_two_a(&data->stack_a);
+	bucket->size = bucket->size - 2;
 }

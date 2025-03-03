@@ -81,10 +81,10 @@ void    sort_five_a(t_data *data);
 void	sort_one(t_data *data, t_bucket *bucket);
 void	sort_two(t_data *data, t_bucket *bucket);
 void	sort_three(t_data *data, t_bucket *bucket);
-void	sort_three_top_a(t_data *data, int max);
-void	sort_three_bottom_a(t_data *data, int max);
-void	sort_three_top_b(t_data *data, int max);
-void	sort_three_bottom_b(t_data *data, int max);
+void	sort_three_top_a(t_data *data, t_bucket *bucket, int max);
+void	sort_three_bottom_a(t_data *data, t_bucket *bucket, int max);
+void	sort_three_top_b(t_data *data, t_bucket *bucket, int max);
+void	sort_three_bottom_b(t_data *data, t_bucket *bucket, int max);
 
 int		get_nth_bucket_value(t_data *data,t_bucket	*bucket, int n);
 int		get_min(t_data *data, t_bucket *bucket);

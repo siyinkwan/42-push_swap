@@ -10,7 +10,9 @@
 		"ranges": "c",
 		"span": "c",
 		"random": "c",
-		"stdbool.h": "c"
+		"stdbool.h": "c",
+		"limits": "c",
+		"semaphore": "c"
 	},
     "editor.insertSpaces": false,
     "editor.tabSize": 4

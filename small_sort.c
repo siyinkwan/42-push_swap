@@ -1,11 +1,15 @@
 #include "push_swap.h"
 
-void	sort_two_a(t_stack *stack_a)
+void	sort_two_a(t_stack *stack_a)  //TODO: REVIEW, PRINT DEBUG
 {
-    int top = get_nth_value(stack_a, 1, 1);
-	int bot = get_nth_value(stack_a, 2, 1);
-	if (top > bot)
+	printf("BEFORE sort_two_a: ");
+	print_stack_1(stack_a);
+    int first = get_nth_value(stack_a, 1, 1);
+    int second = get_nth_value(stack_a, 2, 1);
+	if (first > second)
 		sa(stack_a);
+	printf("AFTER sort_two_a: ");
+	print_stack_1(stack_a);
 	return;
 }
 
