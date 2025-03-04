@@ -146,11 +146,15 @@ void	move_to_mid(t_data *data, t_bucket *bucket, t_partition *partition)
 	}
 	else if (bucket->pos == 2)
 	{
-		// Stay in place since it's already in B
+		pa(&data->stack_b, &data->stack_a);
+		ra(&data->stack_a);
+
 	}
 	else if (bucket->pos == 3)
 	{
 		rrb(&data->stack_b);
+		pa(&data->stack_b, &data->stack_a);
+		ra(&data->stack_a);
 	}
 	partition->mid.size++;
 }
@@ -168,13 +172,11 @@ void	move_to_max(t_data *data, t_bucket *bucket, t_partition *partition)
 	else if (bucket->pos == 2)
 	{
 		pa(&data->stack_b, &data->stack_a);
-		ra(&data->stack_a);
 	}
 	else if (bucket->pos == 3)
 	{
 		rrb(&data->stack_b);
 		pa(&data->stack_b, &data->stack_a);
-		ra(&data->stack_a);
 	}
 	partition->max.size++;
 }
