@@ -88,15 +88,22 @@ int get_nth_value(t_stack *stack, int n, bool from_top)
     if (stack == NULL || n <= 0 || length(stack) < n)
         return -1;
 
-    i = stack->top;
+	else if (from_top)
+    	i = stack->top;
+	else if (!from_top)
+		i = stack->bottom;
+
     while (--n > 0)
 	{
 		if (from_top)
         	i = get_next_index(stack, i);
 		else
+		{
+			//("MARK!");
 			i = get_previous_index(stack, i);
+			//printf("%d",i);
+		}
 	}
-    
     return (stack->stack[i]);
 }
 

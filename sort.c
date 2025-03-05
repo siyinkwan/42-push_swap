@@ -18,6 +18,8 @@ void    sort_stack(t_data *data)
 	 	bucket.size = data->stack_a.size;
 		quick_sort(data, &bucket);
 	}
+	// printf("FINAL: ");
+	// print_stack_1(&data->stack_a);
 }
 
 void	quick_sort(t_data *data, t_bucket *bucket)
@@ -35,7 +37,13 @@ void	quick_sort(t_data *data, t_bucket *bucket)
 		else if (bucket->size == 2)
 			sort_two(data, bucket);
 		else if (bucket->size == 1)
+		{	
+			// printf("BEFORE sort_one: ");
+			// print_stack_1(&data->stack_b);
 			sort_one(data, bucket);
+			// printf("AFTER sort_one: ");
+			// print_stack_1(&data->stack_b);
+		}
 		return ;
 	}
 	partition_stack(data, bucket, &partition);
@@ -101,7 +109,10 @@ void pre_position(int pos, t_partition	*partition)
 void	sort_one(t_data *data, t_bucket *bucket)
 {
 	if (bucket->pos == 1)
+	{
+		//printf("FLAG: %d %d", bucket->size, bucket->pos);
 		rra(&data->stack_a);
+	}
 	else if (bucket->pos == 2)
 		pa(&data->stack_b, &data->stack_a);
 	else if (bucket->pos == 3)
@@ -141,37 +152,37 @@ void	sort_three(t_data *data, t_bucket *bucket)
 
 	if (bucket->pos == 0)
 	{	
-		printf("BEFORE sort_three_top_a: ");
-		print_stack_1(&data->stack_a);
+		//printf("BEFORE sort_three_top_a: ");
+		//print_stack_1(&data->stack_a);
 		sort_three_top_a(data, bucket, max);
-		printf("AFTER sort_three_top_a: ");
-		print_stack_1(&data->stack_a);
+		//printf("AFTER sort_three_top_a: ");
+		//print_stack_1(&data->stack_a);
 	}
 	else if (bucket->pos == 1)
 	{
-		printf("BEFORE sort_three_BOTTOM_a: ");
-		print_stack_1(&data->stack_a);
+		//printf("BEFORE sort_three_BOTTOM_a: ");
+		//print_stack_1(&data->stack_a);
 		sort_three_bottom_a(data, bucket, max);
-		printf("AFTER sort_three_BOTTOM_a: ");
-		print_stack_1(&data->stack_a);
+		//printf("AFTER sort_three_BOTTOM_a: ");
+		//print_stack_1(&data->stack_a);
 	}
 	else if (bucket->pos == 2)
 	{ 
-		printf("BEFORE sort_three_top_B: ");
-		print_stack_1(&data->stack_a);
+		//printf("BEFORE sort_three_top_B: ");
+		//print_stack_1(&data->stack_b);
 		sort_three_top_b(data, bucket, max);
-		printf("AFTER sort_three_top_B: ");
-		print_stack_1(&data->stack_a);
+		//printf("AFTER sort_three_top_B: ");
+		//print_stack_1(&data->stack_b);
 	}
 	else if (bucket->pos == 3)
 	{
-		printf("BEFORE sort_three_BOTTOM_B: ");
-		print_stack_1(&data->stack_a);
-		print_stack_1(&data->stack_b);
+		//printf("BEFORE sort_three_BOTTOM_B: ");
+		//print_stack_1(&data->stack_b);
+		//print_stack_1(&data->stack_b);
 		sort_three_bottom_b(data, bucket, max);
-		printf("AFTER sort_three_BOTTOM_B: ");
-		print_stack_1(&data->stack_a);
-		print_stack_1(&data->stack_b);
+		//printf("AFTER sort_three_BOTTOM_B: ");
+		//print_stack_1(&data->stack_b);
+		//print_stack_1(&data->stack_b);
 	}
 }
 
@@ -254,6 +265,7 @@ void	sort_three_bottom_b(t_data *data, t_bucket *bucket, int max)
 	rrb(&data->stack_b);
 	if (data->stack_b.stack[data->stack_b.top] == max)
 	{
+		//printf("test flag");
 		pa(&data->stack_b, &data->stack_a);
 		rrb(&data->stack_b);
 	}
