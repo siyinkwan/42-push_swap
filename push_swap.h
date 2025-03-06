@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 13:03:08 by sguan             #+#    #+#             */
+/*   Updated: 2025/03/06 21:42:20 by sguan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef H_PUSH
 # define H_push
 
@@ -58,14 +70,18 @@ void    rra(t_stack *stack_a);
 void    rrb(t_stack *stack_b);
 void    rrr(t_stack *stack_a, t_stack *stack_b);
 
-void    get_stack(t_data *data, int argc, char **argv);
+void    get_stack(t_data *data, int argc, char **arr);
 void	pre_get_stack(t_data *data, t_stack *pre_stack, int size);
 int		check_val(char *str);
 int		get_nth_value(t_stack *stack, int n, bool from_top);
 int		ft_atoi(const char *nptr);
+char	*ft_strchr(const char *s, int c);
 int		check_dup(int size, int *arr);
 void    rank_mapping(int *data, int *mapping, int size);
 void    handle_error(t_data *data);
+int		word_count(char *str);
+char	*get_word(char *str, int start, int end);
+char	**ft_split(char *str);
 
 int		sorted(t_stack *stack);
 void	quick_sort(t_data *data, t_bucket *bucket);
@@ -78,13 +94,13 @@ void    sort_two_a(t_stack *stack);
 void    sort_three_a(t_stack *stack);
 void    sort_five_a(t_data *data);
 
-void	sort_one(t_data *data, t_bucket *bucket);
+void	move_to_pos_zero(t_data *data, t_bucket *bucket);
 void	sort_two(t_data *data, t_bucket *bucket);
 void	sort_three(t_data *data, t_bucket *bucket);
-void	sort_three_top_a(t_data *data, t_bucket *bucket, int max);
-void	sort_three_bottom_a(t_data *data, t_bucket *bucket, int max);
-void	sort_three_top_b(t_data *data, t_bucket *bucket, int max);
-void	sort_three_bottom_b(t_data *data, t_bucket *bucket, int max);
+void	sort_three_pos_zero(t_data *data, t_bucket *bucket, int max);
+void	sort_three_pos_one(t_data *data, t_bucket *bucket, int max);
+void	sort_three_pos_two(t_data *data, t_bucket *bucket, int max);
+void	sort_three_pos_three(t_data *data, t_bucket *bucket, int max);
 
 int		get_nth_bucket_value(t_data *data,t_bucket	*bucket, int n);
 int		get_min(t_data *data, t_bucket *bucket);
@@ -92,9 +108,5 @@ int		get_max(t_data *data, t_bucket *bucket);
 void	move_to_min(t_data *data, t_bucket *bucket, t_partition *partition);
 void	move_to_mid(t_data *data, t_bucket *bucket, t_partition *partition);
 void	move_to_max(t_data *data, t_bucket *bucket, t_partition *partition);
-
-//for testing
-void print_stack_1(t_stack *stack);
-void print_stack_2(int *stack, int size);
 
 #endif

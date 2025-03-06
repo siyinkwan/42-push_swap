@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 13:09:38 by sguan             #+#    #+#             */
+/*   Updated: 2025/03/06 23:25:19 by sguan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int    check_val(char *str)
@@ -28,8 +40,6 @@ int    check_val(char *str)
     }
     return (1);
 }
-
-
 
 int	check_dup(int size, int *arr)
 {
@@ -75,9 +85,9 @@ void    rank_mapping(int *value, int *mapping, int size)
 
 void    handle_error(t_data *data)
 {
-    write(2, "Error\n", 6);
-    free(data->stack_a.stack);
+	free(data->stack_a.stack);
     free(data->stack_b.stack);
+    write(2, "Error\n", 6);
     exit(1);
 }
 
@@ -98,11 +108,7 @@ int get_nth_value(t_stack *stack, int n, bool from_top)
 		if (from_top)
         	i = get_next_index(stack, i);
 		else
-		{
-			//("MARK!");
 			i = get_previous_index(stack, i);
-			//printf("%d",i);
-		}
 	}
     return (stack->stack[i]);
 }
@@ -130,4 +136,70 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (res * sign);
+}
+
+int	word_count(char *str)
+{
+	int		i = 0;
+	int		wc = 0;
+
+	if (str[i] == '\0')
+    	return 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+		i++;
+	while (str[i])
+	{
+		while (str[i] != ' ' && str[i] != '\t' && str[i] != '\0')
+			i++;
+		wc++;
+		while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+			i++;
+	}
+	return (wc);
+}
+
+char	*get_word(char *str, int start, int end)
+{
+	int i = 0;
+	char *word;
+
+	word = malloc(sizeof(char)*(end - start + 2));
+	if (!word)
+		return (NULL);
+	while (start <= end)
+	{
+		word[i] = str[start];
+		start++;
+		i++;
+	}
+	word[i] = '\0';
+	return (word);
+}
+
+char	**ft_split(char *str)
+{
+	char	**arr;
+	int		start;
+	int 	end;
+	int		i = 0;
+	int		j = 0;
+	int		wc = word_count(str);
+
+	arr = malloc(sizeof(char *)*(wc + 1));
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+		i++;
+	while (str[i])
+	{
+		start = i;
+		while (str[i] != ' ' && str[i] != '\t' && str[i] != '\0')
+			i++;
+		end = i - 1;
+		if (!arr)
+			return (NULL);
+		arr[j] = get_word(str, start, end);
+		j++;
+		while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+			i++;
+	}
+	return (arr);
 }

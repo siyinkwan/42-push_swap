@@ -1,15 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   small_sort.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 13:03:16 by sguan             #+#    #+#             */
+/*   Updated: 2025/03/05 13:03:31 by sguan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void	sort_two_a(t_stack *stack_a)  //TODO: REVIEW, PRINT DEBUG
+void	sort_two_a(t_stack *stack_a)
 {
-	// printf("BEFORE sort_two_a: ");
-	// print_stack_1(stack_a);
     int first = get_nth_value(stack_a, 1, 1);
     int second = get_nth_value(stack_a, 2, 1);
 	if (first > second)
 		sa(stack_a);
-	// printf("AFTER sort_two_a: ");
-	// print_stack_1(stack_a);
 	return;
 }
 

@@ -1,26 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 13:09:46 by sguan             #+#    #+#             */
+/*   Updated: 2025/03/06 22:22:24 by sguan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void    get_stack(t_data *data, int size, char **argv)
+void    get_stack(t_data *data, int size, char **arr)
 {
     int i;
 	int	*before_map;
 
-	size = size - 1;
 	pre_get_stack(data, &data->stack_a, size);
 	pre_get_stack(data, &data->stack_b, size);
 	before_map = malloc(sizeof(int) * size);
 	if (!before_map)
-		handle_error(data);
-    i = 1;
-    while (argv[i])
 	{
-        if(!check_val(argv[i]))
+		free(before_map);
+		handle_error(data);
+	}
+    i = 0;
+    while (arr[i])
+	{
+        if(!check_val(arr[i]))
+		{
+			free(before_map);
             handle_error(data);
-        before_map[i - 1] = ft_atoi(argv[i]);
+		}
+        before_map[i] = ft_atoi(arr[i]);
 		i++;
 	}
 	if(check_dup(size, before_map))
+	{
+		free(before_map);
         handle_error(data);
+	}
     rank_mapping(before_map, data->stack_a.stack, size);
 	data->stack_a.bottom = size - 1;
 	free(before_map);

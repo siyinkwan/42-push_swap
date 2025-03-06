@@ -1,33 +1,17 @@
-//add header
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operations.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 12:56:59 by sguan             #+#    #+#             */
+/*   Updated: 2025/03/05 12:59:39 by sguan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
-
-// void	swap(t_stack *stack)
-// {
-// 	int	tmp;
-
-// 	if (stack->stack[get_next_index(stack, stack->top)] == 0)
-// 		return ;
-// 	tmp = stack->stack[get_next_index(stack, stack->top)];
-// 	stack->stack[get_next_index(stack, stack->top)] = stack->stack[stack->top];
-// 	stack->stack[stack->top] = tmp;
-// }
-
-// void swap(t_stack *stack)
-// {
-//     int tmp;
-//     int second_index;
-
-//     if (stack->size < 2)
-//         return;
-
-//     second_index = get_next_index(stack, stack->top);
-
-//     tmp = stack->stack[second_index];
-//     stack->stack[second_index] = stack->stack[stack->top];
-//     stack->stack[stack->top] = tmp;
-// }
 
 void	swap(t_stack *stack)
 {
@@ -53,7 +37,6 @@ void	push(t_stack *src, t_stack *dest)
 	src->top = get_next_index(src, src->top);
 }
 
-
 void	rotate(t_stack *stack)
 {
 	if (stack->size == length(stack))
@@ -70,7 +53,6 @@ void	rotate(t_stack *stack)
 	}
 }
 
-
 void	r_rotate(t_stack *stack)
 {
 	if (stack->size == length(stack))
@@ -85,37 +67,6 @@ void	r_rotate(t_stack *stack)
 		stack->stack[stack->bottom] = 0;
 		stack->bottom = get_previous_index(stack, stack->bottom);
 	}
-}
-
-
-int	get_previous_index(t_stack *stack, int index)
-{
-	if (length(stack) == 0)
-		return (index);
-	if (index == 0)
-		return (stack->size - 1);
-	else
-		return (index - 1);
-}
-
-int	get_next_index(t_stack *stack, int index)
-{
-	if (length(stack) == 0)
-		return (index);
-	if (index == stack->size - 1)
-		return (0);
-	else
-		return (index + 1);
-}
-
-int	length(t_stack *stack)
-{
-	if (stack->top == stack->bottom && stack->stack[stack->top] == 0)
-		return (0);
-	if (stack->top > stack->bottom)
-		return ((stack->size - stack->top) + (stack->bottom + 1));
-	else
-		return (stack->bottom - stack->top + 1);
 }
 
 void    sa(t_stack *stack_a)
@@ -197,4 +148,3 @@ void    rrr(t_stack *stack_a, t_stack *stack_b)
     
     printf("rrr\n");
 }
-
