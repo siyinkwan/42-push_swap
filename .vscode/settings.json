@@ -12,7 +12,13 @@
 		"random": "c",
 		"stdbool.h": "c",
 		"limits": "c",
-		"semaphore": "c"
+		"semaphore": "c",
+		"stdio.h": "c",
+		"*.tcc": "c",
+		"iomanip": "c",
+		"ostream": "c",
+		"sstream": "c",
+		"regex": "c"
 	},
     "editor.insertSpaces": false,
     "editor.tabSize": 4
