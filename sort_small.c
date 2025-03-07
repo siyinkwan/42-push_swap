@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   small_sort.c                                       :+:      :+:    :+:   */
+/*   sort_small.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:03:16 by sguan             #+#    #+#             */
-/*   Updated: 2025/03/05 13:03:31 by sguan            ###   ########.fr       */
+/*   Updated: 2025/03/07 14:15:50 by sguan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,25 @@
 
 void	sort_two_a(t_stack *stack_a)
 {
-    int first = get_nth_value(stack_a, 1, 1);
-    int second = get_nth_value(stack_a, 2, 1);
+	int	first;
+	int	second;
+
+	first = get_nth_value(stack_a, 1, 1);
+	second = get_nth_value(stack_a, 2, 1);
 	if (first > second)
 		sa(stack_a);
-	return;
+	return ;
 }
 
-void sort_three_a(t_stack *stack_a)
+void	sort_three_a(t_stack *stack_a)
 {
-    int top = get_nth_value(stack_a, 1, 1);
-    int mid = get_nth_value(stack_a, 2, 1);
-    int bot = get_nth_value(stack_a, 3, 1);
+	int	top;
+	int	mid;
+	int	bot;
 
+	top = get_nth_value(stack_a, 1, 1);
+	mid = get_nth_value(stack_a, 2, 1);
+	bot = get_nth_value(stack_a, 3, 1);
 	if (top > mid && bot > mid && bot > top)
 		sa(stack_a);
 	else if (top > mid && bot > mid && top > bot)

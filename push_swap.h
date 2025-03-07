@@ -6,7 +6,7 @@
 /*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:03:08 by sguan             #+#    #+#             */
-/*   Updated: 2025/03/06 21:42:20 by sguan            ###   ########.fr       */
+/*   Updated: 2025/03/07 14:07:12 by sguan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ int		ft_atoi(const char *nptr);
 char	*ft_strchr(const char *s, int c);
 int		check_dup(int size, int *arr);
 void    rank_mapping(int *data, int *mapping, int size);
-void    handle_error(t_data *data);
+void	handle_error(t_data *data, int *before_map, char **arr, int size);
+void	free_all(t_data *data, char **arr, int size);
 int		word_count(char *str);
 char	*get_word(char *str, int start, int end);
 char	**ft_split(char *str);
@@ -103,8 +104,8 @@ void	sort_three_pos_two(t_data *data, t_bucket *bucket, int max);
 void	sort_three_pos_three(t_data *data, t_bucket *bucket, int max);
 
 int		get_nth_bucket_value(t_data *data,t_bucket	*bucket, int n);
-int		get_min(t_data *data, t_bucket *bucket);
-int		get_max(t_data *data, t_bucket *bucket);
+int		get_min(t_stack *stack, t_bucket *bucket);
+int		get_max(t_stack *stack, t_bucket *bucket);
 void	move_to_min(t_data *data, t_bucket *bucket, t_partition *partition);
 void	move_to_mid(t_data *data, t_bucket *bucket, t_partition *partition);
 void	move_to_max(t_data *data, t_bucket *bucket, t_partition *partition);

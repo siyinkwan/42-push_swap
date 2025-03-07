@@ -5,9 +5,9 @@
             "name": "C/C++: gcc build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/a.out",
+            "program": "${workspaceFolder}/push_swap",
 "args": [
-    "7 6 2 4"
+    "1000000000000000"
 ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

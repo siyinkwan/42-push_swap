@@ -6,7 +6,7 @@
 /*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:02:53 by sguan             #+#    #+#             */
-/*   Updated: 2025/03/06 23:00:59 by sguan            ###   ########.fr       */
+/*   Updated: 2025/03/07 13:33:13 by sguan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 	t_data	data;
 	char	**arr;
 	int		size;
-	
+
 	if (argc == 2)
 	{
 		arr = ft_split(argv[1]);
@@ -31,20 +31,7 @@ int	main(int argc, char **argv)
 	}
 	get_stack(&data, size, arr);
 	sort_stack(&data);
-	if (argc == 2)
-	{
-		int i = 0;
-		while (arr[i])
-		{
-			free(arr[i]);
-			i++;
-		}
-		free(arr);
-	}
-	if (data.stack_a.stack)
-		free(data.stack_a.stack);
-	if (data.stack_b.stack)
-		free(data.stack_b.stack);
+	free_all(&data, arr, size);
 	exit(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:04:31 by sguan             #+#    #+#             */
-/*   Updated: 2025/03/05 13:04:32 by sguan            ###   ########.fr       */
+/*   Updated: 2025/03/07 14:12:01 by sguan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	sorted(t_stack	*stack)
 	i = stack->top;
 	rank = 1;
 	while (rank <= stack->size)
-	{ 
+	{
 		if (stack->stack[i] != rank)
 			return (0);
 		rank++;
@@ -31,14 +31,21 @@ int	sorted(t_stack	*stack)
 
 void	handle_min_two(t_data *data)
 {
+	int	first_value_a;
+	int	first_value_b;
+	int	second_value_b;
+
 	while (length(&data->stack_a) > 3)
 	{
-		if (get_nth_value(&data->stack_a, 1, 1) == 1 || get_nth_value(&data->stack_a, 1, 1) == 2)
+		first_value_a = get_nth_value(&data->stack_a, 1, 1);
+		if (first_value_a == 1 || first_value_a == 2)
 			pb(&data->stack_a, &data->stack_b);
 		else
 			ra(&data->stack_a);
 	}
-	if (get_nth_value(&data->stack_b, 1, 1) < get_nth_value(&data->stack_b, 2, 1))
+	first_value_b = get_nth_value(&data->stack_b, 1, 1);
+	second_value_b = get_nth_value(&data->stack_b, 2, 1);
+	if (first_value_b < second_value_b)
 		sb(&data->stack_b);
 }
 
@@ -52,30 +59,23 @@ int	get_nth_bucket_value(t_data *data, t_bucket	*bucket, int n)
 	else
 		stack = &data->stack_b;
 	from_top = (bucket->pos == 0 || bucket->pos == 2);
-	return(get_nth_value(stack, n, from_top));
+	return (get_nth_value(stack, n, from_top));
 }
 
-int	get_min(t_data *data, t_bucket *bucket)
+int	get_min(t_stack *stack, t_bucket *bucket)
 {
-	t_stack	*stack;
 	int		size;
 	int		min;
-	int		i = 0;
+	int		i;
 
-	if (bucket->pos == 0 || bucket->pos == 1)
-		stack = &data->stack_a;
-	else
-		stack = &data->stack_b;
+	i = 0;
 	size = bucket->size;
-	if (size == 0 || !stack)
-		return (-1);
-	if (bucket->pos == 0|| bucket->pos == 2)
+	if (bucket->pos == 0 || bucket->pos == 2)
 		i = stack->top;
 	else if (bucket->pos == 1 || bucket->pos == 3)
 		i = stack->bottom;
 	min = stack->stack[i];
-
-	while (size > 0)
+	while (size-- > 0)
 	{
 		if (stack->stack[i] < min)
 			min = stack->stack[i];
@@ -83,31 +83,23 @@ int	get_min(t_data *data, t_bucket *bucket)
 			i = get_next_index(stack, i);
 		else if (bucket->pos == 1 || bucket->pos == 3)
 			i = get_previous_index(stack, i);
-		size--;
 	}
 	return (min);
 }
 
-int	get_max(t_data *data, t_bucket *bucket)
+int	get_max(t_stack *stack, t_bucket *bucket)
 {
-	t_stack	*stack;
 	int		size;
 	int		max;
-	int		i = 0;
+	int		i;
 
-	if (bucket->pos == 0 || bucket->pos == 1)
-		stack = &data->stack_a;
-	else
-		stack = &data->stack_b;
+	i = 0;
 	size = bucket->size;
-	if (size == 0 || !stack)
-		return (-1);
 	if (bucket->pos == 0|| bucket->pos == 2)
 		i = stack->top;
 	else if (bucket->pos == 1 || bucket->pos == 3)
 		i = stack->bottom;
 	max = stack->stack[i];
-
 	while (size > 0)
 	{
 		if (stack->stack[i] > max)
@@ -119,76 +111,4 @@ int	get_max(t_data *data, t_bucket *bucket)
 		size--;
 	}
 	return (max);
-}
-
-void	move_to_min(t_data *data, t_bucket *bucket, t_partition *partition)
-{
-	if (bucket->pos == 0)
-	{
-		pb(&data->stack_a, &data->stack_b);
-		rb(&data->stack_b);
-	}
-	else if (bucket->pos == 1)
-	{
-		rra(&data->stack_a);
-		pb(&data->stack_a, &data->stack_b);
-		rb(&data->stack_b);
-	}
-	else if (bucket->pos == 2)
-	{
-		rb(&data->stack_b);
-	}
-	else if (bucket->pos == 3)
-	{
-		rrb(&data->stack_b);
-	}
-	partition->min.size++;
-}
-
-void	move_to_mid(t_data *data, t_bucket *bucket, t_partition *partition)
-{
-	if (bucket->pos == 0)
-	{
-		pb(&data->stack_a, &data->stack_b);
-	}
-	else if (bucket->pos == 1)
-	{
-		rra(&data->stack_a);
-		pb(&data->stack_a, &data->stack_b);
-	}
-	else if (bucket->pos == 2)
-	{
-		pa(&data->stack_b, &data->stack_a);
-		ra(&data->stack_a);
-
-	}
-	else if (bucket->pos == 3)
-	{
-		rrb(&data->stack_b);
-		pa(&data->stack_b, &data->stack_a);
-		ra(&data->stack_a);
-	}
-	partition->mid.size++;
-}
-
-void	move_to_max(t_data *data, t_bucket *bucket, t_partition *partition)
-{
-	if (bucket->pos == 0)
-	{
-		ra(&data->stack_a);
-	}
-	else if (bucket->pos == 1)
-	{
-		rra(&data->stack_a);
-	}
-	else if (bucket->pos == 2)
-	{
-		pa(&data->stack_b, &data->stack_a);
-	}
-	else if (bucket->pos == 3)
-	{
-		rrb(&data->stack_b);
-		pa(&data->stack_b, &data->stack_a);
-	}
-	partition->max.size++;
 }
