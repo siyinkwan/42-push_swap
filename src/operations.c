@@ -6,7 +6,7 @@
 /*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:56:59 by sguan             #+#    #+#             */
-/*   Updated: 2025/03/07 14:45:09 by sguan            ###   ########.fr       */
+/*   Updated: 2025/03/07 23:38:19 by sguan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 
 void	swap(t_stack *stack)
 {
-	int	tmp;
+	int	temp;
 
 	if (stack->stack[get_next_index(stack, stack->top)] == 0)
 		return ;
-	tmp = stack->stack[get_next_index(stack, stack->top)];
+	temp = stack->stack[get_next_index(stack, stack->top)];
 	stack->stack[get_next_index(stack, stack->top)] = stack->stack[stack->top];
-	stack->stack[stack->top] = tmp;
+	stack->stack[stack->top] = temp;
 }
 
-void	push(t_stack *src, t_stack *dest)
+void	push(t_stack *from, t_stack *to)
 {
 	int	dest_i;
 
-	if (dest->size == length(dest))
+	if (to->size == length(to))
 		return ;
-	dest_i = get_previous_index(dest, dest->top);
-	dest->stack[dest_i] = src->stack[src->top];
-	dest->top = dest_i;
-	src->stack[src->top] = 0;
-	src->top = get_next_index(src, src->top);
+	dest_i = get_previous_index(to, to->top);
+	to->stack[dest_i] = from->stack[from->top];
+	to->top = dest_i;
+	from->stack[from->top] = 0;
+	from->top = get_next_index(from, from->top);
 }
 
 void	rotate(t_stack *stack)
@@ -67,4 +67,11 @@ void	r_rotate(t_stack *stack)
 		stack->stack[stack->bottom] = 0;
 		stack->bottom = get_previous_index(stack, stack->bottom);
 	}
+}
+
+void	rrr(t_stack *stack_a, t_stack *stack_b)
+{
+	r_rotate(stack_a);
+	r_rotate(stack_b);
+	ft_printf("rrr\n");
 }

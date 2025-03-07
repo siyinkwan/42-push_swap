@@ -6,7 +6,7 @@
 /*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:09:38 by sguan             #+#    #+#             */
-/*   Updated: 2025/03/07 13:37:54 by sguan            ###   ########.fr       */
+/*   Updated: 2025/03/07 21:09:05 by sguan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	get_nth_value(t_stack *stack, int n, bool from_top)
 
 	if (stack == NULL || n <= 0 || length(stack) < n)
 		return (-1);
-
 	else if (from_top)
 		i = stack->top;
 	else if (!from_top)

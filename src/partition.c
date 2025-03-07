@@ -6,7 +6,7 @@
 /*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:53:55 by sguan             #+#    #+#             */
-/*   Updated: 2025/03/07 14:54:07 by sguan            ###   ########.fr       */
+/*   Updated: 2025/03/07 21:09:27 by sguan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	partition_stack(t_data *data, t_bucket *bucket, t_partition *partition)
 	while (bucket->size > 0)
 	{
 		first_bucket_value = get_nth_bucket_value(data, bucket, 1);
-
 		if (first_bucket_value < pivot_1)
 			move_to_min(data, bucket, partition);
 		else if (first_bucket_value < pivot_2)
@@ -55,7 +54,6 @@ void	pre_position(int pos, t_partition *partition)
 	partition->min.size = 0;
 	partition->mid.size = 0;
 	partition->max.size = 0;
-
 	partition->min.pos = 3 - (pos == 3);
 	partition->mid.pos = 2 - (pos >= 2);
 	partition->max.pos = 1 - (pos >= 1);

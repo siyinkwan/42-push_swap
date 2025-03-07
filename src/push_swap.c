@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_bucket_two.c                                  :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/07 14:58:33 by sguan             #+#    #+#             */
-/*   Updated: 2025/03/07 14:58:35 by sguan            ###   ########.fr       */
+/*   Created: 2025/03/05 13:02:53 by sguan             #+#    #+#             */
+/*   Updated: 2025/03/07 21:10:15 by sguan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_two(t_data *data, t_bucket *bucket)
+int	main(int argc, char **argv)
 {
-	if (bucket->pos == 1)
+	t_data	data;
+	char	**arr;
+	int		size;
+
+	if (argc == 2)
 	{
-		rra(&data->stack_a);
-		rra(&data->stack_a);
+		arr = ft_split(argv[1]);
+		size = word_count(argv[1]);
 	}
-	else if (bucket->pos == 2)
+	else
 	{
-		pa(&data->stack_b, &data->stack_a);
-		pa(&data->stack_b, &data->stack_a);
+		arr = argv + 1;
+		size = argc - 1;
 	}
-	else if (bucket->pos == 3)
-	{
-		rrb(&data->stack_b);
-		rrb(&data->stack_b);
-		pa(&data->stack_b, &data->stack_a);
-		pa(&data->stack_b, &data->stack_a);
-	}
-	sort_two_a(&data->stack_a);
-	bucket->size = bucket->size - 2;
+	get_stack(&data, size, arr);
+	sort_stack(&data);
+	free_all(&data, arr, size);
+	exit(0);
 }

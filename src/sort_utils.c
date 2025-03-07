@@ -6,7 +6,7 @@
 /*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:04:31 by sguan             #+#    #+#             */
-/*   Updated: 2025/03/07 15:03:20 by sguan            ###   ########.fr       */
+/*   Updated: 2025/03/07 21:08:43 by sguan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	get_max(t_stack *stack, t_bucket *bucket)
 
 	i = 0;
 	size = bucket->size;
-	if (bucket->pos == 0|| bucket->pos == 2)
+	if (bucket->pos == 0 || bucket->pos == 2)
 		i = stack->top;
 	else if (bucket->pos == 1 || bucket->pos == 3)
 		i = stack->bottom;

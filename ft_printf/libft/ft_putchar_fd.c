@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sguan <sguan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 13:02:53 by sguan             #+#    #+#             */
-/*   Updated: 2025/03/07 13:33:13 by sguan            ###   ########.fr       */
+/*   Created: 2024/11/25 16:23:37 by sguan             #+#    #+#             */
+/*   Updated: 2024/11/25 21:42:04 by sguan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-#include <stdio.h>
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_putchar_fd(char c, int fd)
 {
-	t_data	data;
-	char	**arr;
-	int		size;
-
-	if (argc == 2)
-	{
-		arr = ft_split(argv[1]);
-		size = word_count(argv[1]);
-	}
-	else
-	{
-		arr = argv + 1;
-		size = argc - 1;
-	}
-	get_stack(&data, size, arr);
-	sort_stack(&data);
-	free_all(&data, arr, size);
-	exit(0);
+	if (fd < 0)
+		return ;
+	write(fd, &c, 1);
 }
-
